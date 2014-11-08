@@ -19,7 +19,8 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses ( 'Controller', 'Controller' );
-
+ 
+App::import('Vendor', 'phrets');
 /**
  * Application Controller
  *
@@ -30,11 +31,13 @@ App::uses ( 'Controller', 'Controller' );
  * @link http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+	
 	public $components = array (
 			'DebugKit.Toolbar',
+			'Security'=>array('csrfExpires'=>'+1 hour','csrfUseOnce'=>false),
 			'Session',
 			'Facebook.Connect',
-			'Security'=>array('csrfExpires'=>'+1 hour'),
+			
 			'Paginator',
 			'Auth' => array (
 					'loginAction' => array(
@@ -74,7 +77,8 @@ class AppController extends Controller {
 	
 	public function beforeFilter() {
 		//parent::beforeFilter ();
-		 
+		//$this->set('rets_server_version',$this->get_rets_info());
+		$this->Security->blackHoleCallback = 'blackHole';
 		 $this->set('FeaturedProperties',$this->getFeaturedProperties());
 		 $this->set('LatestPropertiesNames',$this->getListedPropertiesNames());
 		 $this->set('LandedProperties',$this->getLandedProperties());
@@ -88,6 +92,25 @@ class AppController extends Controller {
 			return $this->redirect ( '/login');
 		 exit();
 		
+	}
+	
+	public function get_rets_info(){
+	 $rets = new PHRETS;
+	
+	 $connect = $rets->Connect(Configure::read('MLSLI_URL'), Configure::read('MLSLI_USERNAME'), Configure::read('MLSLI_PASSWORD'));
+		return $rets->GetServerInformation();
+	}
+	public function blackHole($type){
+		debug($type);
+		if($type == 'auth'){
+			return true;
+		}
+		else{
+			
+			$this->Session->setFlash('Invalid Request| Suspected Forge request!');
+  $this->redirect('/');
+			return false;
+		}
 	}
 	private function getFeaturedProperties(){
 		 

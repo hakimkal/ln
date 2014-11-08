@@ -1,6 +1,7 @@
 # User specific & automatically generated files #
 #################################################
 /app/Config/database.php
+/app/Config/core.php
 /app/tmp
 /lib/Cake/Console/Templates/skel/tmp/
 /plugins
@@ -8,7 +9,8 @@
 /build
 /dist
 /tags
-
+/eservices/*_data
+/eservices/login.php
 # OS generated files #
 ######################
 .DS_Store

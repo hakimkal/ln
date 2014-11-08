@@ -2,11 +2,11 @@
 App::uses ( 'CakeEmail', 'Network/Email' );
 class UserPropertiesController extends AppController {
 	
-	public $components = array('Paginator');
+	//public $components = array('Paginator');
 	public $helpers = array('Paginator');
 	
 	public function beforeFilter() {
-		//parent::beforeFilter ();
+		 parent::beforeFilter ();
 		// Allow UserPropertys to register and logout.
 		$this->Auth->allow ( 'index', 'view' );
 		
@@ -179,7 +179,7 @@ class UserPropertiesController extends AppController {
 									)
 							);
 						}
-						elseif($propertyType=='types'){
+						elseif($propertyType=='type'){
 							$this->paginate = array (
 									'limit' => 6,
 									'order' => 'UserProperty.created Desc',

@@ -10,7 +10,8 @@
 				<label class="control-label" for="inputPropertyFirstName"> Type <span class="form-required" title="This field is required.">*</span>
 				</label>
 				<div class="controls">
-					<input name="PropertyType[type]" type="text" id="inputPropertyFirstName">
+					 
+					<?php echo $this->Form->text('type')?>
 				</div>
 				<!-- /.controls -->
 			</div>
@@ -21,7 +22,7 @@
 					class="form-required" title="This field is required.">*</span>
 				</label>
 				<div class="controls">
-					<input type="text" name="PropertyType[description]" id="inputPropertySurname">
+				<?php echo $this->Form->text('description')?>
 				</div>
 				<!-- /.controls -->
 			</div>

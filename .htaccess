@@ -1,5 +1,20 @@
+#<IfModule mod_rewrite.c>
+ #  RewriteEngine on
+ #  RewriteRule    ^$ app/webroot/    [L]
+#   RewriteRule    (.*) app/webroot/$1 [L]
+#</IfModule>
+
 <IfModule mod_rewrite.c>
    RewriteEngine on
+   #RewriteBase /
+
+   # Disable rewriting for the wordpress blog
+   RewriteRule (eservices/.*) $1 [L] # adjust the regex to what you want.
+
+   #RewriteCond %{REQUEST_URI} ^/eservices/ [NC]
+   #RewriteRule    (.*) $1    [L]
+
+   # Normal CakePHP rewriting
    RewriteRule    ^$ app/webroot/    [L]
    RewriteRule    (.*) app/webroot/$1 [L]
 </IfModule>

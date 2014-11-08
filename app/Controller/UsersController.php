@@ -2,17 +2,18 @@
 App::uses ( 'CakeEmail', 'Network/Email' );
 // app/Controller/UsersController.php
 class UsersController extends AppController {
+	// public $components = array('Security'=>array('csrfExpires'=>'+1 hour','csrfUseOnce'=>false));
 	public function beforeFilter() {
-		// parent::beforeFilter ();
-		// Allow users to register and logout.
-		parent::beforeFilter ();
-		// Allow Members to register and logout.
-		
+		 parent::beforeFilter ();
+		//$this->Security->allowedActions = array('registerUser');
+	
 		if ($this->Auth->user ( 'id' ) != null) {
 			$this->layout = 'user_dashboard';
 		}
 		
 		$this->Auth->allow ( 'processContact', 'login', 'logout', 'registerUser' );
+		//$this->Secutity->requirePost('registerUser');
+		 
 	}
 	public function login() {
 		$this->set ( "title_for_layout", "Login" );
@@ -73,13 +74,16 @@ class UsersController extends AppController {
 		$this->set ( 'user', $this->User->read ( null, $id ) );
 	}
 	public function registerUser() {
+		$this->autoRender = false;
+		
 		if ($this->request->is ( 'get' )) {
 			// $this->Session->setFlash('Invalid request','flash_custom');
 			$this->Session->setFlash ( 'Invalid request' );
 			$this->redirect ( '/' );
 		}
 		if ($this->request->is ( 'post' )) {
-			// debug ( $this->data );
+			 // debug ( $this->data );
+			
 			if (($this->request->data ['User'] ['agreed'] == 1) && ($this->request->data ['User'] ['password'] == $this->request->data ['User'] ['password_verify'])) {
 				$unencrypted_password = $this->request->data ['User'] ['password'];
 			}

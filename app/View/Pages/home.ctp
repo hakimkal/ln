@@ -10,7 +10,7 @@
 
 		<div class="clear"></div>
 		<div class="h_search">
-			<p class="where">Where are you looking for?</p>
+			<p class="where">Where are you looking for?  </p>
 			  <p class="what">What are you looking for?</p >
 			<?php echo $this->Form->create('UserProperty',array('action'=>'index'))?>
 				<input type="search" class="where_search" name="data[UserProperty][q]"

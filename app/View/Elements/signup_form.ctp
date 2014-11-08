@@ -1,5 +1,5 @@
 
-<?php echo $this->Form->create('UserProperty',array('type'=>'file'))?>
+<?php echo $this->Form->create('UserProperty',array('type'=>'file','action'=>'add'))?>
 	<div class="row">
 		 
 
